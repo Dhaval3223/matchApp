@@ -1,12 +1,3 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./App.css";
@@ -29,7 +20,7 @@ const MatchDetails = () => {
         console.error(error);
         return error;
       }
-    }, 1000);
+    }, 2000);
     return () => {
       if (ref.current) {
         clearInterval(ref.current);
@@ -38,76 +29,21 @@ const MatchDetails = () => {
   }, [id]);
 
   return (
-    // <div>
-    //   <TableContainer component={Paper}>
-    //     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-    //       <TableHead>
-    //         <TableRow>
-    //           <TableCell style={{ fontWeight: "bold", fontSize: "20px" }} >SelectionId</TableCell>
-    //           <TableCell align="left" style={{ fontWeight: "bold", fontSize: "20px" }}>RunnerName</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>MK Type</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>Type</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>LayPrice1</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>LaySize1</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>BackPrice1</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>BackSize1</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>GameStatus</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>FinalStatus</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>Is Active</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>Min</TableCell>
-    //           <TableCell align="right" style={{ fontWeight: "bold", fontSize: "20px" }}>Max</TableCell>
-
-    //         </TableRow>
-    //       </TableHead>
-    //       <TableBody>
-    //         {matchData.map((matchItem, index) => (
-    //           <TableRow
-    //             key={index}
-    //             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    //           >
-    //             <TableCell>{matchItem.SelectionId}</TableCell>
-    //             <TableCell align="left">{matchItem.RunnerName}</TableCell>
-    //             <TableCell align="right">{matchItem.mktype}</TableCell>
-    //             <TableCell align="right">{matchItem.type}</TableCell>
-    //             <TableCell align="right">{matchItem.LayPrice1}</TableCell>
-    //             <TableCell align="right">{matchItem.LaySize1}</TableCell>
-    //             <TableCell align="right">{matchItem.BackPrice1}</TableCell>
-    //             <TableCell align="right">{matchItem.BackSize1}</TableCell>
-    //             <TableCell align="right">{matchItem.GameStatus}</TableCell>
-    //             <TableCell align="right">{matchItem.FinalStatus}</TableCell>
-    //             <TableCell align="right">{matchItem.isActive}</TableCell>
-    //             <TableCell align="right">{matchItem.min}</TableCell>
-    //             <TableCell align="right">{matchItem.max}</TableCell>
-
-    //           </TableRow>
-    //         ))}
-    //       </TableBody>
-    //     </Table>
-    //   </TableContainer>
-
-    //   {/* <table style={{ width: "25%" }}>
-    //           <tr>
-    //             <th>Company</th>
-    //             <th>{id}</th>
-    //           </tr>
-    //           <tr>
-    //             <td>Alfreds Futterkiste</td>
-    //             <td>Maria Anders</td>
-    //           </tr>
-    //           <tr>
-    //             <td>Centro comercial Moctezuma</td>
-    //             <td>Francisco Chang</td>
-    //           </tr>
-    //         </table> */}
-
-    // </div>
-    <>
-      <div class="box box-left">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        marginTop: "6%",
+        marginLeft: "4%",
+        marginRight: "4%",
+        fontSize: "18px",
+      }}>
+      <div className="box box-left">
         <div className="container">
-          <div class="item">
+          <div className="item">
             <table>
               <tr>
-                <th>BackPrice1</th>
+                <th style={{ textAlign: "right" }}>BackPrice1</th>
                 <td>
                   {matchData && matchData?.BackPrice1
                     ? matchData?.BackPrice1
@@ -115,7 +51,7 @@ const MatchDetails = () => {
                 </td>
               </tr>
               <tr>
-                <th>BackSize1</th>
+                <th style={{ textAlign: "right" }}>BackSize1</th>
                 <td>
                   {matchData && matchData?.BackSize1
                     ? matchData?.BackSize1
@@ -123,7 +59,7 @@ const MatchDetails = () => {
                 </td>
               </tr>
               <tr>
-                <th>FinalStatus</th>
+                <th style={{ textAlign: "right" }}>FinalStatus</th>
                 <td>
                   {matchData && matchData?.FinalStatus
                     ? matchData?.FinalStatus
@@ -131,7 +67,7 @@ const MatchDetails = () => {
                 </td>
               </tr>
               <tr>
-                <th>GameStatus</th>
+                <th style={{ textAlign: "right" }}>GameStatus</th>
                 <td>
                   {matchData && matchData?.GameStatus
                     ? matchData?.GameStatus
@@ -139,7 +75,7 @@ const MatchDetails = () => {
                 </td>
               </tr>
               <tr>
-                <th>LayPrice1</th>
+                <th style={{ textAlign: "right" }}>LayPrice1</th>
                 <td>
                   {matchData && matchData?.LayPrice1
                     ? matchData?.LayPrice1
@@ -147,13 +83,13 @@ const MatchDetails = () => {
                 </td>
               </tr>
               <tr>
-                <th>LaySize1</th>
+                <th style={{ textAlign: "right" }}>LaySize1</th>
                 <td>
                   {matchData && matchData?.LaySize1 ? matchData?.LaySize1 : "-"}
                 </td>
               </tr>
               <tr>
-                <th>RunnerName</th>
+                <th style={{ textAlign: "right" }}>RunnerName</th>
                 <td>
                   {matchData && matchData?.RunnerName
                     ? matchData?.RunnerName
@@ -164,61 +100,47 @@ const MatchDetails = () => {
           </div>
         </div>
       </div>
-      <div class="box box-right">
+      <div className="box box-right">
         <div className="container">
-          <div class="item">
+          <div className="item">
             <table>
               <tr>
-                <th>SelectionId</th>
                 <td>
                   {matchData && matchData?.SelectionId
                     ? matchData?.SelectionId
                     : "-"}
                 </td>
+                <th style={{ textAlign: "left" }}>SelectionId</th>
               </tr>
               <tr>
-                <th>isActive</th>
                 <td>
-                  {matchData && matchData?.isActive
-                    ? matchData?.isActive
-                    : "-"}
+                  {matchData && matchData?.isActive ? matchData?.isActive : "-"}
                 </td>
+                <th style={{ textAlign: "left" }}>isActive</th>
               </tr>
               <tr>
-                <th>max</th>
-                <td>
-                  {matchData && matchData?.max
-                    ? matchData?.max
-                    : "-"}
-                </td>
+                <td>{matchData && matchData?.max ? matchData?.max : "-"}</td>
+                <th style={{ textAlign: "left" }}>max</th>
               </tr>
               <tr>
-                <th>min</th>
-                <td>
-                  {matchData && matchData?.min
-                    ? matchData?.min
-                    : "-"}
-                </td>
+                <td>{matchData && matchData?.min ? matchData?.min : "-"}</td>
+                <th style={{ textAlign: "left" }}>min</th>
               </tr>
               <tr>
-                <th>mktype</th>
                 <td>
-                  {matchData && matchData?.mktype
-                    ? matchData?.mktype
-                    : "-"}
+                  {matchData && matchData?.mktype ? matchData?.mktype : "-"}
                 </td>
+                <th style={{ textAlign: "left" }}>mktype</th>
               </tr>
               <tr>
-                <th>type</th>
-                <td>
-                  {matchData && matchData?.type ? matchData?.type : "-"}
-                </td>
+                <td>{matchData && matchData?.type ? matchData?.type : "-"}</td>
+                <th style={{ textAlign: "left" }}>type</th>
               </tr>
             </table>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

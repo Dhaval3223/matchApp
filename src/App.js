@@ -34,9 +34,7 @@ function App() {
   useEffect(
     () => async () => {
       try {
-        let response = await fetch(
-          "https://api.bullsoffer9.in/markets/4"
-        );
+        let response = await fetch("https://api.bullsoffer9.in/markets/4");
         response = await response.json();
         setData(response);
       } catch (error) {
@@ -59,7 +57,11 @@ function App() {
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth, fontWeight: "bold", fontSize: "20px" }}>
+                    style={{
+                      minWidth: column.minWidth,
+                      fontWeight: "bold",
+                      fontSize: "20px",
+                    }}>
                     {column.label}
                   </TableCell>
                 ))}
