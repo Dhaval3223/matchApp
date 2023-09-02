@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,createSearchParams} from "react-router-dom";
 import "./App.css";
 
 const columns = [
@@ -77,7 +77,7 @@ function App() {
                       role="checkbox"
                       tabIndex={-1}
                       key={index}
-                      onClick={() => navigate(`/${todoData?.MarketId}`)}
+                      onClick={() => navigate({pathname:`/${todoData?.MarketId}`,search : createSearchParams({matchName : `${todoData?.EventName}`}).toString() })}
                       sx={{ cursor: "pointer" }}>
                       {columns.map((column) => {
                         const value = todoData[column.id];

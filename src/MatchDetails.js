@@ -1,21 +1,29 @@
+import { width } from "@mui/system";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./App.css";
 
 const MatchDetails = () => {
   const { id } = useParams();
+
   const [matchData, setMatchData] = useState([]);
+  const [match, setMatchInfo] = useState([]);
   const ref = useRef(null);
 
   useEffect(() => {
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let matchName = params.get('matchName');
+    setMatchInfo(matchName.split(' v '));
+
     ref.current = setInterval(async () => {
       try {
         let response = await fetch(
           `https://fancy.betpro.gold/api/Odds/fancy/${id}`
         );
         response = await response.json();
-        console.log("response", response[response.length - 1]);
-        setMatchData(response[response.length - 1]);
+        console.log("response");
+        setMatchData(response);
       } catch (error) {
         console.error(error);
         return error;
@@ -29,7 +37,80 @@ const MatchDetails = () => {
   }, [id]);
 
   return (
-    <div
+    <>
+    <div style={{width:"100%"}}>
+      <table style={{position:"absolute", top:"20px",right:"100px"}}>
+        <tbody>
+          <tr>
+            <td>
+              {match[0]}
+            </td>
+            <td className="blue">
+              xxx
+            </td>
+            <td className="orange">
+              xxx
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {match[1]}
+            </td>
+            <td className="blue">
+              200
+            </td>
+            <td className="orange">
+              300
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6%", marginLeft: "4%", marginRight: "4%", fontSize: "18px", }}>
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  {match[0]}
+                </td>
+                <td className="blue">
+                  xxx
+                </td>
+                <td className="orange">
+                  xxx
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {match[1]}
+                </td>
+                <td className="blue">
+                  200
+                </td>
+                <td className="orange">
+                  300
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{marginTop:"6%",marginRight:"150px"}}>
+          <table>
+            <tbody>
+            {matchData.map((data) => {
+              return <tr >
+                <td className="orange">{data.BackPrice1}<br/>{data.BackSize1}</td>
+                <td className="blue">{data.LayPrice1}<br/>{data.LaySize1}</td>
+                <td>{data.RunnerName}</td>
+              </tr>
+            })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {/* <div
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -42,6 +123,8 @@ const MatchDetails = () => {
         <div className="container">
           <div className="item">
             <table>
+            <thead></thead>
+              <tbody>
               <tr>
                 <th style={{ textAlign: "right" }}>BackPrice1</th>
                 <td>
@@ -96,6 +179,7 @@ const MatchDetails = () => {
                     : "-"}
                 </td>
               </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -140,7 +224,8 @@ const MatchDetails = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
+    </>
   );
 };
 
