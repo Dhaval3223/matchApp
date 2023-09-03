@@ -44,7 +44,10 @@ td {
 }
 .blue{
   background-color: #5EADE9;
+  font-weight: 500;
+  font-size: '18px';
 }
 .orange{
   background-color: #EB96AB;
+  font-weight: 500;
 }

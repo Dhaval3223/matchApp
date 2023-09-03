@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate ,createSearchParams} from "react-router-dom";
+import { useNavigate, createSearchParams } from "react-router-dom";
 import "./App.css";
 
 const columns = [
@@ -31,25 +31,26 @@ function App() {
     setPage(0);
   };
 
-  useEffect(
-    () => async () => {
-      try {
-        let response = await fetch("https://api.bullsoffer9.in/markets/4");
-        response = await response.json();
-        setData(response);
-      } catch (error) {
-        console.error(error);
-        return error;
-      }
-    },
-    []
-  );
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      let response = await fetch("https://api.bullsoffer9.in/markets/4");
+      response = await response.json();
+      setData(response);
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  };
 
   return (
     <div className="App">
       <h1>Match Data</h1>
       <Paper sx={{ width: "95%", overflow: "hidden", margin: "auto" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 700 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -61,49 +62,47 @@ function App() {
                       minWidth: column.minWidth,
                       fontWeight: "bold",
                       fontSize: "20px",
-                    }}>
+                    }}
+                  >
                     {column.label}
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((todoData, index) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={index}
-                      onClick={() => navigate({pathname:`/${todoData?.MarketId}`,search : createSearchParams({matchName : `${todoData?.EventName}`}).toString() })}
-                      sx={{ cursor: "pointer" }}>
-                      {columns.map((column) => {
-                        const value = todoData[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+              {data.map((todoData, index) => {
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={index}
+                    onClick={() =>
+                      navigate({
+                        pathname: `/${todoData?.MarketId}`,
+                        search: createSearchParams({
+                          matchName: `${todoData?.EventName}`,
+                        }).toString(),
+                      })
+                    }
+                    sx={{ cursor: "pointer" }}
+                  >
+                    {columns.map((column) => {
+                      const value = todoData[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
       </Paper>
     </div>
   );
