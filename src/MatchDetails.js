@@ -9,34 +9,12 @@ const MatchDetails = () => {
   const { id } = useParams();
 
   const [matchData, setMatchData] = useState([]);
-  const [match, setMatchInfo] = useState([]);
   const ref = useRef(null);
 
   useEffect(() => {
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let matchName = params.get("matchName");
-    setMatchInfo(matchName.split(" v "));
+    matchIdAPI();
 
-    ref.current = setInterval(async () => {
-      try {
-        let response = await axios.post(
-          `https://fancy.betpro.gold/api/Odds/fancy/${id}`,
-          {
-            add_filter:
-              "1 to 25 Balls Runs LS W,1 to 50 Balls Runs LS W,1 to 75 Balls Runs LS W,1 to 100 Balls Runs LS W,1 to 25 Balls Runs NS W,1 to 50 balls run NS W,1 to 75 balls run NS W,1 to 100 Balls Runs NS W,Super over run DA,50 over run SL,5 over run ENG,10 over runs ENG,15 over run ENG,20 over run ENG,25 over run AFG,30 over run AFG,35 over run AFG,40 over run AFG,45 over run AFG,50 over runs AFG",
-            remove_filter:
-              "(LS W vs NS W)adv,1 to 75 balls run TR 2,100 balls run TR 2,6 over run DA 2,10 over run DA 2,15 over run DA 2,20 over run DA 2,16 over run DA,25 over run AFG 2,30 over run AFG 2,35 over run AFG 2,40 over run AFG 2,45 over run AFG 2,50 over run SL 2,run,runs,Runs,:,Run,e,s",
-          }
-        );
-        // response = await response.json();
-        console.log("response", response?.data);
-        setMatchData(response?.data);
-      } catch (error) {
-        console.error(error);
-        return error;
-      }
-    }, 2000);
+    ref.current = setInterval(matchIdAPI, 2000);
 
     return () => {
       if (ref.current) {
@@ -44,6 +22,20 @@ const MatchDetails = () => {
       }
     };
   }, [id]);
+
+  const matchIdAPI = async () => {
+    try {
+      let response = await axios.post(
+        `https://fancy.betpro.gold/api/Odds/fancy/${id}`
+      );
+      // response = await response.json();
+      console.log("response", response?.data);
+      setMatchData(response?.data);
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  };
 
   return (
     <>
@@ -65,19 +57,28 @@ const MatchDetails = () => {
                 ?.map((data) => {
                   return (
                     <tr>
-                      <td className="orange">
-                        {data.BackPrice1}
-                        <br />
-                        {data.BackSize1}
-                      </td>
-                      <td className="blue">
-                        {data.LayPrice1}
-                        <br />
-                        {data.LaySize1}
-                      </td>
-                      <td style={{ fontWeight: 700, fontSize: "18px" }}>
-                        {data.RunnerName}
-                      </td>
+                      {(data?.LayPrice1 != 0 || data?.LaySize1 != 0) && (
+                        <td className="orange">
+                          {data?.LayPrice1}
+                          <br />
+                          {data?.LaySize1}
+                        </td>
+                      )}
+                      {(data?.BackPrice1 != 0 || data?.BackSize1 != 0) && (
+                        <td className="blue">
+                          {data?.BackPrice1}
+                          <br />
+                          {data?.BackSize1}
+                        </td>
+                      )}
+                      {(data?.BackPrice1 != 0 ||
+                        data?.BackSize1 != 0 ||
+                        data?.LayPrice1 != 0 ||
+                        data?.LaySize1 != 0) && (
+                        <td style={{ fontWeight: 700, fontSize: "18px" }}>
+                          {data?.RunnerName}
+                        </td>
+                      )}
                     </tr>
                   );
                 })}

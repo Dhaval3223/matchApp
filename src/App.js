@@ -56,21 +56,21 @@ function App() {
               <TableRow>
                 {columns.map((column) => (
                   <TableCell
-                    key={column.id}
-                    align={column.align}
+                    key={column?.id}
+                    align={column?.align}
                     style={{
-                      minWidth: column.minWidth,
+                      minWidth: column?.minWidth,
                       fontWeight: "bold",
                       fontSize: "20px",
                     }}
                   >
-                    {column.label}
+                    {column?.label}
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((todoData, index) => {
+              {data?.map((todoData, index) => {
                 return (
                   <TableRow
                     hover
@@ -80,9 +80,6 @@ function App() {
                     onClick={() =>
                       navigate({
                         pathname: `/${todoData?.MarketId}`,
-                        search: createSearchParams({
-                          matchName: `${todoData?.EventName}`,
-                        }).toString(),
                       })
                     }
                     sx={{ cursor: "pointer" }}

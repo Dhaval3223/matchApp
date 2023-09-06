@@ -42,12 +42,14 @@ th,
 td {
   padding: 5px;
 }
-.blue{
-  background-color: #5EADE9;
+.blue {
+  background-color: #5eade9;
   font-weight: 500;
-  font-size: '18px';
+  font-size: "18px";
+  max-width: "50px";
 }
-.orange{
-  background-color: #EB96AB;
+.orange {
+  background-color: #eb96ab;
   font-weight: 500;
+  max-width: "50px";
 }
