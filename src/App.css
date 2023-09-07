@@ -43,13 +43,15 @@ td {
   padding: 5px;
 }
 .blue {
-  background-color: #5eade9;
+  background-color: rgb(94, 173, 233, 0.5);
   font-weight: 500;
   font-size: "18px";
   max-width: "50px";
+  text-align: center;
 }
 .orange {
-  background-color: #eb96ab;
+  background-color: rgb(235, 150, 171, 0.7);
   font-weight: 500;
   max-width: "50px";
+  text-align: center;
 }

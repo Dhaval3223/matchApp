@@ -11,4 +11,8 @@ export const router = createHashRouter([
     path: "/:id",
     element: <MatchDetails />,
   },
+  {
+    path: "/:id/:filter",
+    element: <MatchDetails />,
+  },
 ]);

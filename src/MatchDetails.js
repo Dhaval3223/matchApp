@@ -6,10 +6,12 @@ import axios from "axios";
 import "./App.css";
 
 const MatchDetails = () => {
-  const { id } = useParams();
+  const { id, filter } = useParams();
 
   const [matchData, setMatchData] = useState([]);
   const ref = useRef(null);
+
+  const match = localStorage.getItem("match_data");
 
   useEffect(() => {
     matchIdAPI();
@@ -28,8 +30,6 @@ const MatchDetails = () => {
       let response = await axios.post(
         `https://fancy.betpro.gold/api/Odds/fancy/${id}`
       );
-      // response = await response.json();
-      console.log("response", response?.data);
       setMatchData(response?.data);
     } catch (error) {
       console.error(error);
@@ -39,6 +39,32 @@ const MatchDetails = () => {
 
   return (
     <>
+      <div style={{ width: "100%" }}>
+        <table style={{ position: "absolute", top: 60, right: 20 }}>
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  fontSize: "26px",
+                  fontWeight: 700,
+                }}
+              >
+                {match?.split(" v ")?.[0]}
+              </td>
+            </tr>
+            <tr>
+              <td
+                style={{
+                  fontSize: "26px",
+                  fontWeight: 700,
+                }}
+              >
+                {match?.split(" v ")?.[1]}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div
       // style={{
       //   display: "flex",
@@ -53,29 +79,55 @@ const MatchDetails = () => {
           <table style={{ position: "absolute", top: 60, left: 30 }}>
             <tbody>
               {matchData
-                ?.filter((item) => item.RunnerName.includes("over runs"))
+                ?.filter((item) =>
+                  filter !== undefined
+                    ? filter
+                        ?.split("-")
+                        ?.some((val) => item?.RunnerName?.includes(val))
+                    : item
+                )
                 ?.map((data) => {
                   return (
                     <tr>
                       {(data?.LayPrice1 != 0 || data?.LaySize1 != 0) && (
                         <td className="orange">
-                          {data?.LayPrice1}
+                          <span
+                            style={{
+                              fontSize: "26px",
+                              fontWeight: 900,
+                              textAlign: "center",
+                            }}
+                          >
+                            {data?.LayPrice1}
+                          </span>
                           <br />
-                          {data?.LaySize1}
+                          <span style={{ fontSize: "18px", fontWeight: 700 }}>
+                            {data?.LaySize1}
+                          </span>
                         </td>
                       )}
                       {(data?.BackPrice1 != 0 || data?.BackSize1 != 0) && (
                         <td className="blue">
-                          {data?.BackPrice1}
+                          <span
+                            style={{
+                              fontSize: "26px",
+                              fontWeight: 900,
+                              textAlign: "center",
+                            }}
+                          >
+                            {data?.BackPrice1}
+                          </span>
                           <br />
-                          {data?.BackSize1}
+                          <span style={{ fontSize: "18px", fontWeight: 700 }}>
+                            {data?.BackSize1}
+                          </span>
                         </td>
                       )}
                       {(data?.BackPrice1 != 0 ||
                         data?.BackSize1 != 0 ||
                         data?.LayPrice1 != 0 ||
                         data?.LaySize1 != 0) && (
-                        <td style={{ fontWeight: 700, fontSize: "18px" }}>
+                        <td style={{ fontWeight: 700, fontSize: "20px" }}>
                           {data?.RunnerName}
                         </td>
                       )}

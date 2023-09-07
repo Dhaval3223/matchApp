@@ -54,7 +54,7 @@ function App() {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-                {columns.map((column) => (
+                {columns?.map((column) => (
                   <TableCell
                     key={column?.id}
                     align={column?.align}
@@ -77,19 +77,20 @@ function App() {
                     role="checkbox"
                     tabIndex={-1}
                     key={index}
-                    onClick={() =>
+                    onClick={() => {
                       navigate({
                         pathname: `/${todoData?.MarketId}`,
-                      })
-                    }
+                      });
+                      localStorage.setItem("match_data", todoData?.EventName);
+                    }}
                     sx={{ cursor: "pointer" }}
                   >
-                    {columns.map((column) => {
-                      const value = todoData[column.id];
+                    {columns?.map((column) => {
+                      const value = todoData?.[column?.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
+                        <TableCell key={column?.id} align={column.align}>
+                          {column?.format && typeof value === "number"
+                            ? column?.format(value)
                             : value}
                         </TableCell>
                       );
