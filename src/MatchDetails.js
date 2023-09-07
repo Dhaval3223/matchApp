@@ -127,7 +127,13 @@ const MatchDetails = () => {
                         data?.BackSize1 != 0 ||
                         data?.LayPrice1 != 0 ||
                         data?.LaySize1 != 0) && (
-                        <td style={{ fontWeight: 700, fontSize: "20px" }}>
+                        <td
+                          style={{
+                            fontWeight: 900,
+                            fontSize: "24px",
+                            textShadow: "0 0 30px rgba(255, 255, 255, 0.8)",
+                          }}
+                        >
                           {data?.RunnerName}
                         </td>
                       )}
